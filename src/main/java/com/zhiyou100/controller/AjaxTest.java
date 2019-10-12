@@ -31,6 +31,8 @@ import com.zhiyou100.service.AjaxService;
 @Controller
 public class AjaxTest {
 	
+	String nameworkOld;
+	
 	@Autowired
 	private AjaxService service;
 
