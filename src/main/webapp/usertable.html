@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="">
+</form>
+<table border="2">
+	<tr>
+		<td>id</td>
+		<td>
+			<input type="text" id="i1">
+		</td>
+	</tr>
+	<tr>
+		<td>用户名</td>
+		<td>
+			<input type="text" id="i2">
+		</td>
+	</tr>
+	<tr>
+		<td>密码</td>
+		<td>
+			<input type="text" id="i3">
+		</td>
+	</tr>
+	<tr>
+		<td>生日</td>
+		<td>
+			<input type="text" id="i4">
+		</td>
+	</tr>
+</table>
+<script type="text/javascript" src="Js/jquery-1.11.0.js"></script>
+<script type="text/javascript">
+	//输入框绑定失去焦点事件 
+	$("#i1").blur(function(){
+		var val = $("#i1").val()
+		$.ajax({
+			url:"/hospital/findUserById",
+			data:{"id":val},
+			type:"get",
+			success:function(msg){
+				$("#i2").val(msg.obj.userName)
+				$("#i3").val(msg.obj.password)
+				$("#i4").val(msg.obj.email)
+			}
+		})
+	})
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.mapper.DoctorMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.model.Doctor" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="certificate_type" property="certificateType" jdbcType="INTEGER" />
+    <result column="ID_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="special_plane" property="specialPlane" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="birther" property="birther" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="section_id" property="sectionId" jdbcType="INTEGER" />
+    <result column="education" property="education" jdbcType="INTEGER" />
+    <result column="noted" property="noted" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <association property="section" javaType="section">
+			<result column="secco_name" property="seccoName" />
+	</association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, certificate_type, ID_num, phone, special_plane, sex, age, birther, email, 
+    section_id, education, noted, time
+  </sql>
+  
+  <select id="findDoctorById" resultMap="BaseResultMap" parameterType="int" >
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where id = #{id}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from doctor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="addDoctor" parameterType="com.zhiyou100.model.Doctor" >
+    insert into doctor ( name, certificate_type, 
+      ID_num, phone, special_plane, 
+      sex, age, birther, 
+      email, section_id, education, 
+      noted)
+    values ( #{name,jdbcType=VARCHAR}, #{certificateType,jdbcType=INTEGER}, 
+      #{idNum,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{specialPlane,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, #{birther,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{sectionId,jdbcType=INTEGER}, #{education,jdbcType=INTEGER}, 
+      #{noted,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.model.Doctor" >
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="certificateType != null" >
+        certificate_type,
+      </if>
+      <if test="idNum != null" >
+        ID_num,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="specialPlane != null" >
+        special_plane,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="birther != null" >
+        birther,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="noted != null" >
+        noted,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null" >
+        #{certificateType,jdbcType=INTEGER},
+      </if>
+      <if test="idNum != null" >
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="specialPlane != null" >
+        #{specialPlane,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="birther != null" >
+        #{birther,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionId != null" >
+        #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=INTEGER},
+      </if>
+      <if test="noted != null" >
+        #{noted,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.model.Doctor" >
+    update doctor
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null" >
+        certificate_type = #{certificateType,jdbcType=INTEGER},
+      </if>
+      <if test="idNum != null" >
+        ID_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="specialPlane != null" >
+        special_plane = #{specialPlane,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="birther != null" >
+        birther = #{birther,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionId != null" >
+        section_id = #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=INTEGER},
+      </if>
+      <if test="noted != null" >
+        noted = #{noted,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateDoctor" parameterType="doctor" >
+    update doctor
+    set name = #{name},
+      certificate_type = #{certificateType},
+      ID_num = #{idNum},
+      phone = #{phone},
+      special_plane = #{specialPlane},
+      sex = #{sex},
+      age = #{age},
+      birther = #{birther},
+      email = #{email},
+      section_id = #{sectionId},
+      education = #{education},
+      noted = #{noted}
+      where id = #{id}
+  </update>
+  
+  
+  <select id="findAllDoctor" parameterType="doctor" resultMap="BaseResultMap">
+  	select d.id,d.name,d.certificate_type,d.ID_num,d.phone,d.special_plane,
+	d.sex,d.age,d.birther,d.email,d.section_id,d.education,d.noted,d.time,s.secco_name
+ 	from doctor d,certificate_type c,section s
+  	where d.certificate_type=c.id and d.section_id = s.id
+   	<if test="id!=0 and id!=null">
+   	and d.id like '%${id}%'
+   	</if>
+   	<if test="name!=null and name!=''">
+   	and d.name like '%${name}%'
+   	</if>
+   	<if test="sectionId !=null and sectionId!=0">
+   	and d.section_id like '%${sectionId}%'
+   	</if>
+  </select>
+  
+  <resultMap id="BaseResultMap2" type="com.zhiyou100.model.Section" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="seccp_num" property="seccpNum" jdbcType="VARCHAR" />
+    <result column="secco_name" property="seccoName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="findAllSection" resultMap="BaseResultMap2">
+  	select * from section
+  </select>
+  
+  <select id="findAllCerti" resultType="certificateType">
+  	select * from certificate_type
+  </select>
+  
+  
+  <select id="findSection" parameterType="int" resultType="string">
+  	select s.secco_name from section s,doctor d where d.id=#{id} and d.section_id=s.id 
+  </select>
+  
+  <select id="findCerti" parameterType="int" resultType="string">
+  	select c.name from certificate_type c,doctor d where d.id=#{id} and d.certificate_type=c.id
+  </select>
+  
+  <delete id="deletelist" parameterType="int">
+		delete from doctor where id in 
+		<foreach item="check" collection="array" index="no" open="(" separator="," close=")">
+              #{check}
+          </foreach>
+	</delete>
+  
+  
+</mapper>

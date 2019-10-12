@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.mapper.ChargeManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.model.ChargeManager" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="medical_record" property="medicalRecord" jdbcType="VARCHAR" />
+    <result column="pay_items_id" property="payItemsId" jdbcType="INTEGER" />
+    <result column="charge_money" property="chargeMoney" jdbcType="DOUBLE" />
+    <result column="charge_time" property="chargeTime" jdbcType="DATE" />
+    <association property="regis" javaType="RegistrationInfor">
+    	<result column="name" property="name"/> 
+    	<result column="medical_record" property="medicalRecord"/>
+    </association>
+    <association property="pay" javaType="PayItems">
+			<result column="charge_item_name" property="chargeItemName" />
+		</association>
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, medical_record, pay_items_id, charge_money, charge_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from charge_manager
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from charge_manager
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.model.ChargeManager" >
+    insert into charge_manager (id, medical_record, pay_items_id, 
+      charge_money, charge_time)
+    values (#{id,jdbcType=INTEGER}, #{medicalRecord,jdbcType=VARCHAR}, #{payItemsId,jdbcType=INTEGER}, 
+      #{chargeMoney,jdbcType=DOUBLE}, #{chargeTime,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.model.ChargeManager" >
+    update charge_manager
+    <set >
+      <if test="medicalRecord != null" >
+        medical_record = #{medicalRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="payItemsId != null" >
+        pay_items_id = #{payItemsId,jdbcType=INTEGER},
+      </if>
+      <if test="chargeMoney != null" >
+        charge_money = #{chargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="chargeTime != null" >
+        charge_time = #{chargeTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.model.ChargeManager" >
+    update charge_manager
+    set medical_record = #{medicalRecord,jdbcType=VARCHAR},
+      pay_items_id = #{payItemsId,jdbcType=INTEGER},
+      charge_money = #{chargeMoney,jdbcType=DOUBLE},
+      charge_time = #{chargeTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findAllCharge" parameterType="ChargeManager" resultMap="BaseResultMap">
+  	select c.id,c.charge_time,c.charge_money,p.charge_item_name,r.name,r.medical_record
+	from charge_manager c,pay_items p,registration_infor r
+	where c.medical_record=r.medical_record and c.pay_items_id = p.id
+	<if test="name!=null and name!=''">
+		and r.name like '%${name}%'
+	</if>
+	<if test="id!=null and id!=0 and id!=''"></if>
+		and c.id like '%${id}%'
+  </select>
+  
+  <select id="findChargeById" resultMap="BaseResultMap" parameterType="int">
+  	select c.id,c.charge_time,c.charge_money,p.charge_item_name,r.name,r.medical_record,c.pay_items_id 
+	from charge_manager c,pay_items p,registration_infor r where c.id=#{id}
+	and c.medical_record=r.medical_record and c.pay_items_id = p.id
+  </select>
+  
+  <insert id="addPayItems" parameterType="payItems">
+  	insert into pay_items (charge_item_name,receivable_money) 
+	values(#{chargeItemName},#{receivableMoney})
+  </insert>
+  
+  <insert id="addCharge" parameterType="chargeManager" >
+    insert into charge_manager (medical_record,pay_items_id,charge_money) values (#{medicalRecord},#{payItemsId}, #{chargeMoney} )
+  </insert>
+  
+  <resultMap type="com.zhiyou100.model.PayItems" id="pay">
+  	<id column="id" property="id" jdbcType="INTEGER" />
+    <result column="charge_item_name" property="chargeItemName" jdbcType="VARCHAR" />
+    <result column="receivable_money" property="receivableMoney" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <select id="findAllPay" resultMap="pay">
+  	select * from pay_items
+  </select>
+  
+  
+</mapper>

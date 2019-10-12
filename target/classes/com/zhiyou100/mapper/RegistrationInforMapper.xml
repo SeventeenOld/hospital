@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.mapper.RegistrationInforMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.model.RegistrationInfor" >
+    <result column="medical_record" property="medicalRecord" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="certificate_type" property="certificateType" jdbcType="INTEGER" />
+    <result column="ID_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="social_safe_num" property="socialSafeNum" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="self_paying" property="selfPaying" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="career" property="career" jdbcType="VARCHAR" />
+    <result column="early_appointment" property="earlyAppointment" jdbcType="VARCHAR" />
+    <result column="doctor_name" property="doctorName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="noted" property="noted" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="section_secco_name" property="sectionName" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="registration_fee" property="registrationFee" jdbcType="DOUBLE" />
+  </resultMap>
+  <insert id="addRegistration" parameterType="registrationInfor" >
+    insert into registration_infor (medical_record, name, certificate_type, 
+      ID_num, social_safe_num, phone, 
+      self_paying, sex, career, 
+      early_appointment, doctor_name, status, 
+      noted,  section_secco_name, 
+      age, registration_fee)
+    values 
+    (#{medicalRecord,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+    #{certificateType,jdbcType=INTEGER},  #{idNum,jdbcType=VARCHAR},
+     #{socialSafeNum,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{selfPaying,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, 
+      #{career,jdbcType=VARCHAR}, #{earlyAppointment,jdbcType=VARCHAR}, 
+      #{doctorName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{noted,jdbcType=VARCHAR}, #{sectionName,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{registrationFee,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.model.RegistrationInfor" >
+    insert into registration_infor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medicalRecord != null" >
+        medical_record,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="certificateType != null" >
+        certificate_type,
+      </if>
+      <if test="idNum != null" >
+        ID_num,
+      </if>
+      <if test="socialSafeNum != null" >
+        social_safe_num,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="selfPaying != null" >
+        self_paying,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="career != null" >
+        career,
+      </if>
+      <if test="earlyAppointment != null" >
+        early_appointment,
+      </if>
+      <if test="doctorId != null" >
+        doctor_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="noted != null" >
+        noted,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="registrationFee != null" >
+        registration_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medicalRecord != null" >
+        #{medicalRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null" >
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null" >
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="socialSafeNum != null" >
+        #{socialSafeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="selfPaying != null" >
+        #{selfPaying,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="career != null" >
+        #{career,jdbcType=VARCHAR},
+      </if>
+      <if test="earlyAppointment != null" >
+        #{earlyAppointment,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorId != null" >
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="noted != null" >
+        #{noted,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sectionId != null" >
+        #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="registrationFee != null" >
+        #{registrationFee,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <select id="findAllReg" parameterType="RegistrationInfor" resultMap="BaseResultMap">
+  	select
+		r.medical_record,
+		r.name,
+		r.ID_num,
+		r.registration_fee,
+		r.social_safe_num,
+		r.phone,
+		r.sex,
+		r.self_paying,
+		r.age,
+		r.career,
+		r.early_appointment,
+		r.section_secco_name,
+		r.doctor_name,
+		r.noted,
+		r.status,
+		r.time
+ 	from registration_infor r,section s,doctor d,certificate_type c
+ 	where r.certificate_type=c.id 
+	and r.doctor_name = d.name 
+	and r.section_secco_name = s.secco_name
+	<if test="medicalRecord!=null and medicalRecord !=''">
+		and r.medical_record like '%${medicalRecord}%'
+	</if>
+	<if test="doctorName !=null and doctorName !=''">
+		and r.doctor_name like '%${doctorName}%'
+	</if>
+	<if test="sectionName!=null and sectionName!=''">
+		and r.section_secco_name like '%${sectionName}%'
+	</if>
+	<if test="startTime !=null and startTime!=''">
+		and r.time &gt; #{startTime}
+	</if>
+	<if test="endTime !=null and endTime!=''">
+		and r.time &lt; #{endTime}
+	</if>
+  </select>
+  
+  <select id="findDoctorName" resultType="doctor">
+  	select * from doctor
+  </select>
+  
+  
+  <resultMap id="sectionId" type="com.zhiyou100.model.Section" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="seccp_num" property="seccpNum" jdbcType="VARCHAR" />
+    <result column="secco_name" property="seccoName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findAllSection" resultMap="sectionId">
+  	select * from section
+  </select>
+  
+  
+  <select id="findAllCerti" resultType="certificateType">
+  	select * from certificate_type
+  </select>
+  
+  
+  <select id="finOneRegi" parameterType="string" resultMap="BaseResultMap">
+   select * from registration_infor where medical_record=#{medicalRecord}
+  </select>
+  
+  <delete id="deleteOneRegi" parameterType="string">
+  	DELETE from registration_infor where medical_record=#{medicalRecord} 
+  </delete>
+  
+  <select id="findCertName" resultType="string" parameterType="string">
+  	select name from certificate_type where id = (
+		select certificate_type from registration_infor where medical_record = #{medicalRecord}
+		)
+  </select>
+  
+  
+  <update id="updateRegi" parameterType="registrationInfor">
+  	 update registration_infor set 
+		name = #{name},
+		certificate_type = #{certificateType},
+		ID_num = #{idNum},
+		social_safe_num = #{socialSafeNum},
+		phone = #{phone},
+		self_paying = #{selfPaying},
+		sex = #{sex},
+		career = #{career},
+		early_appointment = #{earlyAppointment},
+		doctor_name = #{doctorName},
+		status = #{status},
+		noted = #{noted},
+		section_secco_name = #{sectionName},
+		age = #{age},
+		status = #{status},
+		registration_fee = #{registrationFee}
+	where medical_record = #{medicalRecord}
+  </update>
+  
+  
+  
+</mapper>

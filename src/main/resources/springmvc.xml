@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+ 		http://www.springframework.org/schema/context/spring-context.xsd">
+       
+       
+       
+     <mvc:resources location="/Images/" mapping="/Images/**" />    
+     <mvc:resources location="/Css/" mapping="/Css/**" />  
+     <mvc:resources location="/Js/" mapping="/Js/**" />  
+     <mvc:resources location="/assets/" mapping="/assets/**" />     
+	
+	<!-- 不过滤静态图片什么玩意的 -->
+	<mvc:default-servlet-handler/>
+	
+	
+	<!-- 配置适用于注解开发的适配器和映射器  -->
+	<mvc:annotation-driven />
+	
+	<!-- 开启扫描时注解生效 -->
+	<context:component-scan base-package="com.zhiyou100.controller" >
+		<!-- 包含那个包下的 -->
+		 <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+	</context:component-scan>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        	<property name="maxUploadSize" value="1048576"></property>
+    </bean>
+
+	
+    <!-- 视图解析器  -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 视图解析的前缀,/就是跟目录,如果页面放在web-inf下,就在前面加路劲 -->
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+</beans>

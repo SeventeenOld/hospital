@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.mapper.HospitalClearMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.model.HospitalClear" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="medical_record" property="medicalRecord" jdbcType="VARCHAR" />
+    <result column="clear_status" property="clearStatus" jdbcType="VARCHAR" />
+    <result column="total_cost" property="totalCost" jdbcType="DOUBLE" />
+    <result column="cash_pledge" property="cashPledge" jdbcType="VARCHAR" />
+    <result column="still_need_pay" property="stillNeedPay" jdbcType="DOUBLE" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="clear_time" property="clearTime" jdbcType="VARCHAR" />
+    <result column="medical_costs" property="medicalCosts" jdbcType="DOUBLE" />
+    <result column="drug_cost" property="drugCost" jdbcType="DOUBLE" />
+    <result column="amount_paid" property="amountPaid" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, medical_record, clear_status, total_cost, cash_pledge, still_need_pay, balance, 
+    clear_time, medical_costs, drug_cost, amount_paid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hospital_clear
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hospital_clear
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.model.HospitalClear" >
+    insert into hospital_clear (id, medical_record, clear_status, 
+      total_cost, cash_pledge, still_need_pay, 
+      balance, clear_time, medical_costs, 
+      drug_cost, amount_paid)
+    values (#{id,jdbcType=INTEGER}, #{medicalRecord,jdbcType=VARCHAR}, #{clearStatus,jdbcType=VARCHAR}, 
+      #{totalCost,jdbcType=DOUBLE}, #{cashPledge,jdbcType=VARCHAR}, #{stillNeedPay,jdbcType=DOUBLE}, 
+      #{balance,jdbcType=DOUBLE}, #{clearTime,jdbcType=VARCHAR}, #{medicalCosts,jdbcType=DOUBLE}, 
+      #{drugCost,jdbcType=DOUBLE}, #{amountPaid,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.model.HospitalClear" >
+    insert into hospital_clear
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="medicalRecord != null" >
+        medical_record,
+      </if>
+      <if test="clearStatus != null" >
+        clear_status,
+      </if>
+      <if test="totalCost != null" >
+        total_cost,
+      </if>
+      <if test="cashPledge != null" >
+        cash_pledge,
+      </if>
+      <if test="stillNeedPay != null" >
+        still_need_pay,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="clearTime != null" >
+        clear_time,
+      </if>
+      <if test="medicalCosts != null" >
+        medical_costs,
+      </if>
+      <if test="drugCost != null" >
+        drug_cost,
+      </if>
+      <if test="amountPaid != null" >
+        amount_paid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="medicalRecord != null" >
+        #{medicalRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="clearStatus != null" >
+        #{clearStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCost != null" >
+        #{totalCost,jdbcType=DOUBLE},
+      </if>
+      <if test="cashPledge != null" >
+        #{cashPledge,jdbcType=VARCHAR},
+      </if>
+      <if test="stillNeedPay != null" >
+        #{stillNeedPay,jdbcType=DOUBLE},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="clearTime != null" >
+        #{clearTime,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalCosts != null" >
+        #{medicalCosts,jdbcType=DOUBLE},
+      </if>
+      <if test="drugCost != null" >
+        #{drugCost,jdbcType=DOUBLE},
+      </if>
+      <if test="amountPaid != null" >
+        #{amountPaid,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.model.HospitalClear" >
+    update hospital_clear
+    <set >
+      <if test="medicalRecord != null" >
+        medical_record = #{medicalRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="clearStatus != null" >
+        clear_status = #{clearStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCost != null" >
+        total_cost = #{totalCost,jdbcType=DOUBLE},
+      </if>
+      <if test="cashPledge != null" >
+        cash_pledge = #{cashPledge,jdbcType=VARCHAR},
+      </if>
+      <if test="stillNeedPay != null" >
+        still_need_pay = #{stillNeedPay,jdbcType=DOUBLE},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="clearTime != null" >
+        clear_time = #{clearTime,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalCosts != null" >
+        medical_costs = #{medicalCosts,jdbcType=DOUBLE},
+      </if>
+      <if test="drugCost != null" >
+        drug_cost = #{drugCost,jdbcType=DOUBLE},
+      </if>
+      <if test="amountPaid != null" >
+        amount_paid = #{amountPaid,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.model.HospitalClear" >
+    update hospital_clear
+    set medical_record = #{medicalRecord,jdbcType=VARCHAR},
+      clear_status = #{clearStatus,jdbcType=VARCHAR},
+      total_cost = #{totalCost,jdbcType=DOUBLE},
+      cash_pledge = #{cashPledge,jdbcType=VARCHAR},
+      still_need_pay = #{stillNeedPay,jdbcType=DOUBLE},
+      balance = #{balance,jdbcType=DOUBLE},
+      clear_time = #{clearTime,jdbcType=VARCHAR},
+      medical_costs = #{medicalCosts,jdbcType=DOUBLE},
+      drug_cost = #{drugCost,jdbcType=DOUBLE},
+      amount_paid = #{amountPaid,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

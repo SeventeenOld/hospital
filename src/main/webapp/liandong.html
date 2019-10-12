@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<select name="section" id="s1">
+	<option  value="1">骨科</option>
+	<option  value="2">急诊科</option>
+	<option  value="3">妇科</option>
+</select>
+<select name="doctor" id="s2">
+	<option ></option>
+</select>
+<script type="text/javascript" src="Js/jquery-1.11.0.js"></script>
+<script type="text/javascript">
+	//给下拉框绑定与内容改变事件
+	$("#s1").change(function(){
+		var sectionId = $("#s1").val()
+		$.ajax({
+			url:"/hospital/findDoctorBySectionId",
+			type:"get",
+			data:{"sectionId":sectionId},
+			success:function(data){
+				$("#s2").empty()
+				for(var i=0;i<data.obj.length;i++){
+					$("#s2").append("<option>"+data.obj[i].name+"</option>")
+				}
+				
+			}
+		})
+	})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.mapper.DispensingMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.model.Dispensing" >
+    <id column="medical_record" property="medicalRecord" jdbcType="VARCHAR" />
+    <result column="drug_num" property="drugNum" jdbcType="VARCHAR" />
+    <result column="dispens_num" property="dispensNum" jdbcType="INTEGER" />
+    <result column="alread_send_num" property="alreadSendNum" jdbcType="INTEGER" />
+    <result column="not_send_num" property="notSendNum" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    medical_record, drug_num, dispens_num, alread_send_num, not_send_num, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dispensing
+    where medical_record = #{medicalRecord,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dispensing
+    where medical_record = #{medicalRecord,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.model.Dispensing" >
+    insert into dispensing (medical_record, drug_num, dispens_num, 
+      alread_send_num, not_send_num, time
+      )
+    values (#{medicalRecord,jdbcType=VARCHAR}, #{drugNum,jdbcType=VARCHAR}, #{dispensNum,jdbcType=INTEGER}, 
+      #{alreadSendNum,jdbcType=INTEGER}, #{notSendNum,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.model.Dispensing" >
+    insert into dispensing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medicalRecord != null" >
+        medical_record,
+      </if>
+      <if test="drugNum != null" >
+        drug_num,
+      </if>
+      <if test="dispensNum != null" >
+        dispens_num,
+      </if>
+      <if test="alreadSendNum != null" >
+        alread_send_num,
+      </if>
+      <if test="notSendNum != null" >
+        not_send_num,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medicalRecord != null" >
+        #{medicalRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="drugNum != null" >
+        #{drugNum,jdbcType=VARCHAR},
+      </if>
+      <if test="dispensNum != null" >
+        #{dispensNum,jdbcType=INTEGER},
+      </if>
+      <if test="alreadSendNum != null" >
+        #{alreadSendNum,jdbcType=INTEGER},
+      </if>
+      <if test="notSendNum != null" >
+        #{notSendNum,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.model.Dispensing" >
+    update dispensing
+    <set >
+      <if test="drugNum != null" >
+        drug_num = #{drugNum,jdbcType=VARCHAR},
+      </if>
+      <if test="dispensNum != null" >
+        dispens_num = #{dispensNum,jdbcType=INTEGER},
+      </if>
+      <if test="alreadSendNum != null" >
+        alread_send_num = #{alreadSendNum,jdbcType=INTEGER},
+      </if>
+      <if test="notSendNum != null" >
+        not_send_num = #{notSendNum,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where medical_record = #{medicalRecord,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.model.Dispensing" >
+    update dispensing
+    set drug_num = #{drugNum,jdbcType=VARCHAR},
+      dispens_num = #{dispensNum,jdbcType=INTEGER},
+      alread_send_num = #{alreadSendNum,jdbcType=INTEGER},
+      not_send_num = #{notSendNum,jdbcType=INTEGER},
+      time = #{time,jdbcType=VARCHAR}
+    where medical_record = #{medicalRecord,jdbcType=VARCHAR}
+  </update>
+</mapper>
